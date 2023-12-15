@@ -45,7 +45,16 @@ class AppointmentService {
 
             return appointments;
         }
+    }
 
+    async GetById(id){
+        try {
+            var eventById = await Appo.findOne({'_id': id})
+            return eventById;
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 }
 
