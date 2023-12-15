@@ -48,8 +48,10 @@ app.get("/getcalendar", async (req, res) => {
     var appointments = await AppointmentService.GetAll(false);
 
     res.json(appointments);
+})
 
-
+app.get("/event/:id", async (req, res) => {
+    res.json({id: req.params.id})
 })
 
 app.listen(8080, () => {});
