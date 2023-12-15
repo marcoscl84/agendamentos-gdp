@@ -16,6 +16,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/agendamento").then(() => {
 }).catch((error) => {
     console.log("Errosss: " + error)
 })
+mongoose.set('useFindAndModify', false);
 
 app.get("/", (req, res) => {
     res.render("index");
@@ -52,9 +53,15 @@ app.get("/getcalendar", async (req, res) => {
 
 app.get("/event/:id", async (req, res) => {
     var appointment = await AppointmentService.GetById(req.params.id)
-    res.render("event");
 
     res.render("event", {appo: appointment})
+})
+
+app.post("/finish", async (req, res) => {
+    var id = req.body.id;
+    var result = await AppointmentService.Finish(id);
+
+    res.redirect("/")
 })
 
 app.listen(8080, () => {});

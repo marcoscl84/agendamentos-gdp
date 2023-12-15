@@ -8,5 +8,9 @@
 <hr>
 
 <% if(appo.finished == false){ %>
-<button>Finalizar Consulta</button>
+    <form action="/finish" method="post">
+        <button>Finalizar Consulta</button>
+        <input type="hidden" name="id" value="<%= appo._id %>">
+    </form>
+
 <% } %>
