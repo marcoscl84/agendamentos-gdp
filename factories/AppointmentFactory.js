@@ -11,7 +11,7 @@ class AppointmentFactory {
         var minutes = Number.parseInt(simpleAppointment.time.split(":")[1]);
 
         var startDate = new Date(year, month, day, hour, minutes, 0, 0);
-        startDate.setHours(startDate.getHours() - 3);
+        // startDate.setHours(startDate.getHours() - 3);
 
         var appoArray = {
             id: simpleAppointment._id,
