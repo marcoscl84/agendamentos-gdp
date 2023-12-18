@@ -74,7 +74,7 @@ app.get("/searchresult", async (req, res) => {
     res.render("list", {appos});
 });
 
-var pollTime = 60 * 60000; // 1h
+var pollTime = 5 * 60 * 1000; // 5min
 
 // Aviso de 1h para a consulta
 setInterval(async () => {
