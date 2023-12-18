@@ -14,7 +14,8 @@ class AppointmentService {
             cpf: cpf,
             date: date,
             time: time,
-            finished: false
+            finished: false,
+            notified: false
         })
 
         try {
@@ -74,6 +75,27 @@ class AppointmentService {
             return appos
         } catch (error) {
             return [];
+        }
+        
+    }
+
+    async SendNotification(){
+        try {
+            var appos = await this.GetAll(false);
+            appos.forEach(app => {
+
+                var date = app.start.getTime();
+                var hour = 1000 * 60 * 60;
+                var gap = date - Date.now();
+
+                if(gap <= hour){
+                    consolee.log("ojiojoj");
+                }
+
+
+            });
+        } catch (error) {
+            console.log(error)
         }
         
     }

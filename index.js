@@ -15,7 +15,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/agendamento").then(() => {
     console.log("Conectado com sucesso!")
 }).catch((error) => {
     console.log("Errosss: " + error)
-})
+});
 mongoose.set('useFindAndModify', false);
 
 app.get("/", (req, res) => {
@@ -42,31 +42,28 @@ app.post("/create", async (req, res) => {
     } else {
         res.send("Ocorreu uma falha...")
     }
-
-})
+});
 
 app.get("/getcalendar", async (req, res) => {
     var appointments = await AppointmentService.GetAll(false);
 
     res.json(appointments);
-})
+});
 
 app.get("/event/:id", async (req, res) => {
     var appointment = await AppointmentService.GetById(req.params.id)
 
     res.render("event", {appo: appointment})
-})
+});
 
 app.post("/finish", async (req, res) => {
     var id = req.body.id;
     var result = await AppointmentService.Finish(id);
 
     res.redirect("/")
-})
+});
 
 app.get("/list", async (req, res) => {
-
-    // await AppointmentService.Search("marcoscontelima@yahoo.com.br")
 
     var appos = await AppointmentService.GetAll(true);
     res.render("list", {appos});
@@ -75,6 +72,15 @@ app.get("/list", async (req, res) => {
 app.get("/searchresult", async (req, res) => {
     var appos = await AppointmentService.Search(req.query.search);
     res.render("list", {appos});
-})
+});
+
+var pollTime = 60 * 60000; // 1h
+
+// Aviso de 1h para a consulta
+setInterval(async () => {
+    
+    await AppointmentService.SendNotification();
+
+}, pollTime)
 
 app.listen(8080, () => {});
